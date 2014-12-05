@@ -1,10 +1,28 @@
 <?php
 
+/**
+ * Twitter Rest API (v1.1) helper class for eaiser api access (unofficial).
+ *
+ * @author  Chandra Shekhar <shekharsharma705@gmail.com>
+ * @license MIT License
+ * @version 1.0.0
+ * @link    http://github.com/cshekharsharma/twitter-api-helper
+ */
 class TwitterAPI {
 
+    /**
+     * Contains API authentication info. Must be initialized before any API call
+     *
+     * @var array
+     */
     private $authConfig = null;
 
-    public function TwitterAPI(array $authConfig) {
+    /**
+     * TwitterAPI constructor
+     *
+     * @param array $authConfig
+     */
+    public function __construct(array $authConfig) {
         require_once 'src/Autoloader.php';
         $this->authConfig = $authConfig;
     }
@@ -17,9 +35,9 @@ class TwitterAPI {
      * @param array $fields
      * @return mixed
      */
-    public function invokeApi($url, $method, $fields) {
+    private function invokeApi($url, $method, $fields) {
         try {
-            $twitter = new TwitterAPIExchange($this->authConfig);
+            $twitter = new Twitter($this->authConfig);
             switch ($method) {
                 case Constants::REQUEST_METHOD_GET:
                     $twitter = $twitter->setGetfield($fields);
@@ -36,8 +54,14 @@ class TwitterAPI {
         }
     }
 
-    public function getFullUrl($urlkey) {
-        return Constants::TW_API_URL . '1.1/' . $urlkey;
+    /**
+     * Returns full API url to be called.
+     *
+     * @param string $urlkey
+     * @return string
+     */
+    private function getFullUrl($relativeUrl) {
+        return Constants::TW_API_URL . '1.1/' . $relativeUrl;
     }
 
     /**

@@ -10,9 +10,9 @@ class Autoloader {
 
     public function __construct() {
         $this->classPathMap = array(
-            'Constants' => 'Constants.php',
+            'Twitter'    => 'Twitter.php',
+            'Constants'  => 'Constants.php',
             'TwitterAPI' => 'TwitterAPI.php',
-            'TwitterAPIExchange' => 'TwitterAPIExchange.php',
         );
     }
 
